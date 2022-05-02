@@ -2,12 +2,11 @@ import React from 'react';
 import './App.css';
 
 // React router DOM imports
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom'
-import { HomePage } from './pages/HomePage';
-import { RegisterPage } from './pages/RegisterPage';
-import { LoginPage } from './pages/LoginPage';
-import { KatasPage } from './pages/KatasPage';
-import { KataDetailsPage } from './pages/KataDetailsPage';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+
+import { AppRoutes } from './routes/Routes';
+import CopyRight from './components/dashboard/CopyRight';
+
 
 function App() {
   return (
@@ -34,21 +33,11 @@ function App() {
             </li>
           </ul>
         </nav>
-        {/**
-         * Crear carpeta routes
-         */}
-        <Routes>
-          <Route path='/' element={<HomePage />}></Route>
-          <Route path='/register' element={<RegisterPage />}></Route>
-          <Route path='/login' element={<LoginPage />}></Route>
-          <Route path='/katas' element={<KatasPage />}></Route>
-          <Route path='/katas/:id' element={<KataDetailsPage />}></Route>
-          <Route path='/katas/:id' element={<KataDetailsPage />}></Route>
-          {/**Redireccion de ruta no encontrada */}
-          <Route path='*'
-            element={<Navigate to="/" />}></Route>
-        </Routes>
+        <AppRoutes />
+
       </Router>
+
+      <CopyRight />
 
     </div>
   );

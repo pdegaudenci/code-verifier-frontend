@@ -44,3 +44,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+Lanzamiento del servidor:
+
+mongod --dbpath C:\Users\pdega\Desktop\Ejercicios\MERN\mongodb-win32-x86_64-windows-5.0.6\data\db
