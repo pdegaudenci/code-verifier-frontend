@@ -72,7 +72,15 @@ export const NuevoEditor = () => {
         <>
             <select>
                 {lenguajes.map((lenguaje, index) => (
-                    <option onChange={(valor) => manejadorLenguajes(valor)} value={lenguaje} key={index}>{lenguaje}</option>
+                    <option
+                        onChange={(valor) => manejadorLenguajes(valor)}
+                        value={lenguaje}
+                        key={index}
+                    >
+
+                        {lenguaje}
+
+                    </option>
                 ))}
 
             </select>

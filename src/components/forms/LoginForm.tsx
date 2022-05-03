@@ -42,6 +42,7 @@ export const LoginForm = () => {
                                  */
                                 // PErsistir o guardar token en navegador del cliente
                                 await sessionStorage.setItem('JWToken', response.data.token);
+                                await sessionStorage.setItem('id', response.data.id)
                                 navigate('/')
 
 

@@ -1,5 +1,6 @@
-import React from "react";
-import Highlight, { defaultProps } from 'prism-react-renderer'
+import react from 'react';
+
+import Highlight, { defaultProps } from 'prism-react-renderer';
 
 interface EditorProps {
     language?: any,
@@ -10,7 +11,7 @@ interface EditorProps {
 export const Editor = ({ language, children, solution }: EditorProps) => {
 
     return (
-        <Highlight {...defaultProps} code={solution} language={'typescript'}>
+        <Highlight {...defaultProps} code={children} language='typescript' >
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
                 <pre className={className} style={style}>
                     {tokens.map((line, i) => (
@@ -23,6 +24,6 @@ export const Editor = ({ language, children, solution }: EditorProps) => {
                 </pre>
             )}
         </Highlight>
-    )
+    );
 
 }

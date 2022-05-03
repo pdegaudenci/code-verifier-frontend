@@ -1,11 +1,11 @@
 import React from 'react';
-import { LoginForm } from '../components/forms/LoginForm';
+import SignInSide from '../components/forms/LoginForm2';
 
 export const LoginPage = () => {
     return (
         <div>
             <h1>Login Page</h1>
-            <LoginForm />
+            <SignInSide />
         </div>
     )
 }

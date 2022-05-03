@@ -16,7 +16,15 @@ export const KataDetailsPage = () => {
     // Variable para navegar entre stack de rutas
     let navigate = useNavigate();
     // Token obtenido de sesion de navegador
-    let loggedIn = useSessionStorage('JWToken')
+    let loggedIn = useSessionStorage('JWToken');
+    //Id del usuario
+    let idUser: string = useSessionStorage('id');
+
+    // Funcion para actualizar kata
+    const actualizarKata = (kata: Kata) => {
+        navigate(`/actualizarKata/${id}`);
+    }
+
     // Estrado para mostra solucion
     const [showSolution, setShowSolution] = useState(false);
     useEffect(() => {
@@ -68,14 +76,25 @@ export const KataDetailsPage = () => {
 
                     ) : (
                         <div>
-                            Error al obtener kata
+                            Cargando kata .....
                         </div>
                     )
                 }
                 <button onClick={() => setShowSolution(!showSolution)}>
                     {showSolution ? 'Mostrar solucion' : 'Esconder solucion'}
                 </button>
-                {showSolution ? null : <Editor solution={kata?.solution}></Editor>}
+
+                {/**showSolution ? null : <Editor solution={kata?.solution}></Editor>**/}
+                {
+                    idUser === kata?.User ?
+                        <div>
+                            <button>Borrar</button>
+                            <button onClick={() => actualizarKata(kata)}>Actualizar</button>
+                        </div>
+
+
+                        : (null)
+                }
             </div>
         </div>
     )

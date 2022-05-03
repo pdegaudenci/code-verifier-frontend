@@ -122,6 +122,9 @@ const tema = createTheme();
 // Contenido del dashboard (Componentes de navegacion)
 
 export const ContenidoDashboard = () => {
+
+
+
     // Almacena info  de abierto/cerrado  del menu lateral en un estado
     const [abierto, setAbierto] = useState(true);
 

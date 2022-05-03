@@ -51,7 +51,7 @@ export const RegisterForm = () => {
                             if (response.status === 200) {
                                 console.log('User registered correctly')
                                 console.log(response.data);
-                                alert('Uusario registrado correctamente');
+                                alert('Usuario registrado correctamente');
                             } else {
                                 throw new Error('Error in registry')
                             }

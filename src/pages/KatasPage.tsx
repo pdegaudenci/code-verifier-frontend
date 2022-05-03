@@ -45,6 +45,10 @@ export const KatasPage = () => {
         navigate(`/katas/${id}`)
     }
 
+    const crearKata = () => {
+        navigate('/crearKata');
+    }
+
     return (
         <div>
             <h1>Katas Page</h1>
@@ -68,7 +72,12 @@ export const KatasPage = () => {
 
                         )
                         }
+                        <button onClick={() => {
+                            crearKata()
+                        }}>Crear Nuevo kata</button>
+
                     </div>
+
 
                 ) :
                     (
