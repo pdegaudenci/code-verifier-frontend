@@ -1,14 +1,30 @@
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { useFormik } from 'formik'
 import { register } from '../../services/authService';
 import * as Yup from 'yup';
 import { AxiosResponse } from 'axios';
 
+// Importaciones de componentes de materia UI
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 // Definicion de componente
 export const RegisterForm = () => {
 
+    let tema = createTheme()
     // Campos que se pasan a formik
-    const initialCredential = {
+    const credencialesIniciales = {
         name: '',
         email: '',
         password: '',
@@ -35,120 +51,130 @@ export const RegisterForm = () => {
 
     })
 
+    const formik = useFormik({
+        initialValues: credencialesIniciales,
+        // Validaciones de formulario
+        validationSchema: registerSchema,
+        onSubmit: (values) => {
+            console.log(values)
+            register(values.email, values.password, values.name, values.age)
+                .then((response: AxiosResponse) => {
+
+                    if (response.status === 200) {
+                        console.log('Usuario registrado correctamente')
+                        console.log(response.data);
+                        alert('Usuario registrado correctamente');
+                    } else {
+                        throw new Error('Error en registro de usuario')
+                    }
+
+                }).catch((error) => {
+                    console.log(`Error de registro:  ${error}`)
+                })
+
+
+        }
+    });
+
 
     return (
-        <div>
-            <h4>Formulario de registro de nuevo usuario</h4>
+        <>
+
             {/* Encapsulacion de Formik (Wrapper)*/}
-            <Formik
-                initialValues={initialCredential}
-                validationSchema={registerSchema}
-                onSubmit={async (values) => {
 
-                    register(values.email, values.password, values.name, values.age)
-                        .then((response: AxiosResponse) => {
+            <ThemeProvider theme={tema}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5" sx={{ mb: 5 }}>
+                            Registro de usuario
+                        </Typography>
+                        <form onSubmit={formik.handleSubmit}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} >
+                                    <TextField
+                                        autoComplete="given-name"
+                                        name="name"
+                                        required
+                                        fullWidth
+                                        id="firstName"
+                                        label="Nombre completo"
+                                        autoFocus
+                                    />
+                                </Grid>
 
-                            if (response.status === 200) {
-                                console.log('User registered correctly')
-                                console.log(response.data);
-                                alert('Usuario registrado correctamente');
-                            } else {
-                                throw new Error('Error in registry')
-                            }
 
-                        }).catch((error) => {
-                            console.log(`Error de registro:  ${error}`)
-                        })
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Correo Electronico"
+                                        name="email"
+                                        autoComplete="example@example.com"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="confirm"
+                                        label="Escriba su contraseña"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="Confirme contraseña"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Confirmar Contraseña"
+                                        type="password"
+                                        id="password"
 
+                                    />
+                                </Grid>
 
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="age"
+                                        label="Ingrese su edad"
+                                        type="number"
+                                        id="age"
 
-
-
-                }
-
-                }
-
-            >
-                {/** Valores a inyectar en formulario*/}
-
-                {
-
-                    ({ values, isSubmitting, touched, errors, handleChange, handleBlur }) => (
-                        // Formulario de formik
-                        <Form>
-                            {/** Campos de nombre*/}
-                            <label htmlFor="name">Nombre</label>
-                            <Field type="text" id="name" name="name" placeholder="Escribe tu nombre" />
-
-                            {/** Errrores de nombre*/}
-                            {
-                                errors.name && touched.name && (
-                                    <ErrorMessage name="name" component='div'></ErrorMessage>
-                                )
-                            }
-                            {/** Campos de email*/}
-                            <label htmlFor="email">Email</label>
-                            <Field type="email" id="email" name="email" placeholder="email@example.com" />
-
-                            {/** Errrores de email*/}
-                            {
-                                // Si existen errores de email y el usuario ha pinchado sobre el input de email
-                                errors.email && touched.email && (
-                                    <ErrorMessage name="email" component='div'></ErrorMessage>
-                                )
-                            }
-                            {/** Errrores de password*/}
-                            <label htmlFor="password">Password</label>
-                            <Field type="password" id="password" name="password" placeholder="Ingrese contraseña" />
-
-                            {/** Errrores de Password*/}
-                            {
-                                // Si existen errores de email y el usuario ha pinchado sobre el input de email
-                                errors.password && touched.password && (
-                                    <ErrorMessage name="password" component='div'></ErrorMessage>
-                                )
-                            }
-
-                            {/** Errrores de password*/}
-                            <label htmlFor="confirm">Confirm Password</label>
-                            <Field type="password" id="confirm" name="confirm" placeholder="Ingrese contraseña" />
-
-                            {/** Errrores de Password*/}
-                            {
-                                // Si existen errores de email y el usuario ha pinchado sobre el input de email
-                                errors.confirm && touched.confirm && (
-                                    <ErrorMessage name="confirm" component='div'></ErrorMessage>
-                                )
-                            }
-
-                            <label htmlFor="age">Edad</label>
-                            <Field type="number" id="age" name="age" placeholder="Ingrese edad" />
-
-                            {/** Errrores de Password*/}
-                            {
-                                // Si existen errores de email y el usuario ha pinchado sobre el input de email
-                                errors.age && touched.age && (
-                                    <ErrorMessage name="edad" component='div'></ErrorMessage>
-                                )
-                            }
-
-                            {/** Boton de envio*/}
-                            <button type="submit">Register</button>
-
-                            {/** Mensaje al presionar boton de envio*/}
-                            {
-                                isSubmitting ? (
-                                    <p>Registrando</p>
-                                ) : null
-                            }
-                        </Form>
-                    )
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Registrarme
+                            </Button>
+                        </form>
 
 
 
+                    </Box>
 
-                }
-            </Formik>
-        </div>
+                </Container>
+            </ThemeProvider >
+        </>
     )
 }
