@@ -105,61 +105,80 @@ export const RegisterForm = () => {
                                     <TextField
                                         autoComplete="given-name"
                                         name="name"
-                                        required
+                              
                                         fullWidth
                                         id="firstName"
                                         label="Nombre completo"
                                         autoFocus
+                                        value={formik.values.name}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.name && Boolean(formik.errors.name)}
+                                        helperText={formik.touched.name && formik.errors.name}
                                     />
                                 </Grid>
 
 
                                 <Grid item xs={12}>
                                     <TextField
-                                        required
+                                     
                                         fullWidth
                                         id="email"
                                         label="Correo Electronico"
                                         name="email"
                                         autoComplete="example@example.com"
+                                        value={formik.values.email}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.email && Boolean(formik.errors.email)}
+                                        helperText={formik.touched.email && formik.errors.email}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                        required
+                                      
                                         fullWidth
-                                        name="confirm"
+                                        name="password"
                                         label="Escriba su contraseña"
                                         type="password"
                                         id="password"
                                         autoComplete="Confirme contraseña"
+                                        value={formik.values.password}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.password && Boolean(formik.errors.password)}
+                                        helperText={formik.touched.password && formik.errors.password}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                        required
+                                      
                                         fullWidth
-                                        name="password"
+                                        name="confirm"
                                         label="Confirmar Contraseña"
                                         type="password"
-                                        id="password"
+                                        id="confirm"
+                                        value={formik.values.confirm}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.confirm && Boolean(formik.errors.confirm)}
+                                        helperText={formik.touched.confirm && formik.errors.confirm}
 
                                     />
                                 </Grid>
 
                                 <Grid item xs={12}>
                                     <TextField
-                                        required
+                                      
                                         fullWidth
                                         name="age"
                                         label="Ingrese su edad"
                                         type="number"
                                         id="age"
-
+                                        value={formik.values.age}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.age && Boolean(formik.errors.age)}
+                                        helperText={formik.touched.age && formik.errors.age}
+                                    
                                     />
                                 </Grid>
-                            </Grid>
-                            <Button
+                                   <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
@@ -167,6 +186,9 @@ export const RegisterForm = () => {
                             >
                                 Registrarme
                             </Button>
+                            </Grid>
+                         
+                        
                         </form>
 
 
