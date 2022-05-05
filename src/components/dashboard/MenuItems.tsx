@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText'
 // Material icons
 import PeopleIcon from '@mui/icons-material/People';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 export const MenuItems = (
     <React.Fragment>
@@ -15,21 +16,24 @@ export const MenuItems = (
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="katas" />
+       
+      
+        <Link to='/katas' className="menuLink"> Katas </Link>          
+
         </ListItemButton>
 
         <ListItemButton>
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Users" />
+            <Link to='/katas' > Usuarios </Link> 
         </ListItemButton>
 
         <ListItemButton>
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Ranking" />
+            <Link to='/ranking' > Ranking </Link> 
         </ListItemButton>
     </React.Fragment>
 

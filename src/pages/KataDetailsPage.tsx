@@ -6,7 +6,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Editor } from '../components/editor/Editor';
 import { useSessionStorage } from '../components/hooks/useSessionStorage';
 import { Kata } from '../config/types/Kata.types';
-import { getKataById } from '../services/katasService';
+import { getKataById, borrarKataById } from '../services/katasService';
+
+import Button from '@mui/material/Button';
 
 export const KataDetailsPage = () => {
 
@@ -21,8 +23,19 @@ export const KataDetailsPage = () => {
     let idUser: string = useSessionStorage('id');
 
     // Funcion para actualizar kata
-    const actualizarKata = (kata: Kata) => {
+    const actualizarKata = () => {
         navigate(`/actualizarKata/${id}`);
+    }
+
+    const borrarKata = () => {
+        let respuesta = window.confirm(`Desea borrar el siguiente kata ${kata}`)
+
+        if (respuesta === true) {
+            borrarKataById(loggedIn, id, idUser);
+            navigate(`/katas`);
+
+        }
+
     }
 
     // Estrado para mostra solucion
@@ -88,8 +101,20 @@ export const KataDetailsPage = () => {
                 {
                     idUser === kata?.User ?
                         <div>
-                            <button>Borrar</button>
-                            <button onClick={() => actualizarKata(kata)}>Actualizar</button>
+                            <Button variant="contained" color="primary"
+                                onClick={() => {
+                                    borrarKata()
+                                }}>
+                                Borrar Kata
+                            </Button>
+                            <Button variant="contained" color="primary"
+                                onClick={(kata) => {
+                                    actualizarKata()
+                                }}>
+                                Actualizar Kata
+                            </Button>
+
+
                         </div>
 
 

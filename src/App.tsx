@@ -17,7 +17,7 @@ function App() {
        */
       }
       <Router>
-        <nav>
+       {/**<nav>
           <ul>
             <li>
               <Link to='/'>Home page</Link>
@@ -32,7 +32,7 @@ function App() {
               <Link to='/login'>Home page</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */} 
         <AppRoutes />
 
       </Router>

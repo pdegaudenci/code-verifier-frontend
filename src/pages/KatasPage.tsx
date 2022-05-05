@@ -1,9 +1,11 @@
+import { ContenidoDashboard } from '../components/dashboard/Dashboard';
 import { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSessionStorage } from '../components/hooks/useSessionStorage';
 import { Kata } from '../config/types/Kata.types';
 import { getAllKatas } from '../services/katasService';
+import Button from '@mui/material/Button';
 
 export const KatasPage = () => {
     // Verificar si el usuario esta logueado y exixte un JWToken en sesionStorage
@@ -18,7 +20,7 @@ export const KatasPage = () => {
         if (!loggedIn) {
             return navigate('/login')
         } else {
-            getAllKatas(loggedIn, 2, 1).then((response: AxiosResponse) => {
+            getAllKatas(loggedIn, 10, 1).then((response: AxiosResponse) => {
                 if (response.status === 200 && response.data.katas && response.data.totalPages && response.data.currentPage) {
                     // console.table(response.data);
                     // Desestructuracion de campos de response.data
@@ -41,7 +43,7 @@ export const KatasPage = () => {
      * Metodo para navegar a los detalles de un kata especifico
      * @param id {number} id del kata seleccionado
      */
-    const navigateToKataDetail = (id: number) => {
+    const navigateToKataDetail = (id: any) => {
         navigate(`/katas/${id}`)
     }
 
@@ -51,6 +53,7 @@ export const KatasPage = () => {
 
     return (
         <div>
+            <ContenidoDashboard />
             <h1>Katas Page</h1>
             {/**TODO:  Real kata */}
             {
@@ -72,9 +75,7 @@ export const KatasPage = () => {
 
                         )
                         }
-                        <button onClick={() => {
-                            crearKata()
-                        }}>Crear Nuevo kata</button>
+
 
                     </div>
 
@@ -87,6 +88,12 @@ export const KatasPage = () => {
                     )
             }
 
+            <Button variant="contained" color="primary"
+                onClick={() => {
+                    crearKata()
+                }}>
+                Crear Kata
+            </Button>
         </div>
     )
 }

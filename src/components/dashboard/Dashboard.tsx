@@ -168,12 +168,12 @@ export const ContenidoDashboard = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Katas
+                           Aplicacion CRUD de katas
                         </Typography>
 
                         {/**Icono para mostrar notificaciones */}
                         <IconButton color='inherit'>
-                            <Badge badgeContent={10} color='secondary'>
+                            <Badge badgeContent={1} color='secondary'>
                                 <NotificationIcon />
 
                             </Badge>
@@ -218,41 +218,7 @@ export const ContenidoDashboard = () => {
 
                 </Menu>
                 {/**Contenido del dashboard */}
-                <Box
-                    component='main'
-                    sx={{
-                        backgroundColor: (theme) => theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
-                        flexGrow: 1,
-                        height: '100vh',
-                        overflow: 'auto'
-                    }}
-                >
-                    <ToolBar />
-                    {/**Contenedor de elementos de dashboard */}
-                    <Container maxWidth='lg' sx={{ mx: 4 }}>
-                        {/**Estructura de tipo rejilla (GRID) . Para pantallas grandes : 9 columnas / pequeñas :12 columnas y medianas: 8 columnas */}
-
-                        <Grid item xs={12} md={12} lg={12}>
-                            {/**Bloque Paper con contenido con distribucion flex en modo de columnas */}
-                            <Paper sx={{
-                                p: 2,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                height: 400
-                            }}>
-                                {/**Editores de codigo */}
-                                <NuevoEditor />
-                                {/**<TipTapEditor /> */}
-                            </Paper>
-
-                        </Grid>
-
-
-
-                    </Container>
-
-
-                </Box>
+             
             </Box>
 
         </ThemeProvider >

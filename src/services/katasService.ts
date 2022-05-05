@@ -48,3 +48,69 @@ export const getKataById = (token: string, id: string) => {
     console.table(response)
     return response
 }
+
+export const crearKata = (token: string, kata: any) => {
+
+    /**
+     * Añado configuracion a peticion axios ,
+     * incluyendo el xs-access-token como parametro de la cabecera o
+     *  headers, el metodo (POST) y el body (data)
+     *  */
+
+    // https://localhost:8000/api/katas
+    const response = axios({
+        method: "post",
+        url: "/katas",
+        data: {
+
+
+            name: kata.name,
+            Description: kata.Description,
+            Level: kata.Level,
+            User: kata.User,
+            participants: [],
+            solution: kata.solution
+
+
+        },
+        headers: {
+            'xs-access-token': token
+        },
+        timeout: 5000,
+    })
+
+    return response
+
+
+}
+
+export const borrarKataById = (token: string, id: any, editor: string) => {
+
+
+    /**
+     * Añado configuracion a peticion axios ,
+     * incluyendo el xs-access-token como parametro de la cabecera o
+     *  headers, el metodo (POST) y el body (data)
+     *  */
+
+    // https://localhost:8000/api/katas
+    const options =
+    {
+        headers: {
+            'xs-access-token': token
+        },
+        params: {
+            id: id,
+            editor: editor
+        }
+
+    }
+    // https://localhost:8000/api/katas?id=id
+    const response = axios.delete('/katas',
+        options
+
+    )
+    console.table(response)
+    return response
+}
+
