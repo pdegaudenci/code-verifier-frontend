@@ -84,6 +84,48 @@ export const crearKata = (token: string, kata: any) => {
 
 }
 
+export const actualizarKata = (token: string, kata: any, editor: string) => {
+
+    /**
+     * Añado configuracion a peticion axios ,
+     * incluyendo el xs-access-token como parametro de la cabecera o
+     *  headers, el metodo (POST) y el body (data)
+     *  */
+
+    // https://localhost:8000/api/katas
+    const response = axios({
+        method: "put",
+        url: "/katas",
+        data: {
+
+
+            name: kata.name,
+            Description: kata.Description,
+            Level: kata.Level,
+            User: kata.User,
+            participants: [],
+            solution: kata.solution
+
+
+        },
+
+        params: {
+            id: kata?._id,
+            editor: editor
+        },
+        headers: {
+            'xs-access-token': token
+        },
+        timeout: 5000,
+    })
+
+    return response
+
+
+}
+
+
+
 export const borrarKataById = (token: string, id: any, editor: string) => {
 
 

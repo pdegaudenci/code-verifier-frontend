@@ -9,9 +9,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -105,7 +102,7 @@ export const RegisterForm = () => {
                                     <TextField
                                         autoComplete="given-name"
                                         name="name"
-                              
+
                                         fullWidth
                                         id="firstName"
                                         label="Nombre completo"
@@ -120,7 +117,7 @@ export const RegisterForm = () => {
 
                                 <Grid item xs={12}>
                                     <TextField
-                                     
+
                                         fullWidth
                                         id="email"
                                         label="Correo Electronico"
@@ -134,7 +131,7 @@ export const RegisterForm = () => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                      
+
                                         fullWidth
                                         name="password"
                                         label="Escriba su contraseña"
@@ -149,7 +146,7 @@ export const RegisterForm = () => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
-                                      
+
                                         fullWidth
                                         name="confirm"
                                         label="Confirmar Contraseña"
@@ -165,7 +162,7 @@ export const RegisterForm = () => {
 
                                 <Grid item xs={12}>
                                     <TextField
-                                      
+
                                         fullWidth
                                         name="age"
                                         label="Ingrese su edad"
@@ -175,20 +172,20 @@ export const RegisterForm = () => {
                                         onChange={formik.handleChange}
                                         error={formik.touched.age && Boolean(formik.errors.age)}
                                         helperText={formik.touched.age && formik.errors.age}
-                                    
+
                                     />
                                 </Grid>
-                                   <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Registrarme
-                            </Button>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 3, mb: 2 }}
+                                >
+                                    Registrarme
+                                </Button>
                             </Grid>
-                         
-                        
+
+
                         </form>
 
 

@@ -20,7 +20,7 @@ export const AppRoutes = () => {
             <Route path='/login' element={<LoginPage />}></Route>
             <Route path='/katas' element={<KatasPage />}></Route>
             <Route path='/katas/:id' element={<KataDetailsPage />}></Route>
-            <Route path='/actualizarKata/:kata' element={<ActualizarKata />}></Route>
+            <Route path='/actualizarKata/:id' element={<ActualizarKata />}></Route>
             <Route path='/crearKata' element={<CrearKata />}></Route>
 
 

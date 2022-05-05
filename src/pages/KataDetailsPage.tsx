@@ -27,21 +27,20 @@ export const KataDetailsPage = () => {
         navigate(`/actualizarKata/${id}`);
     }
 
-    const borrarKata = () => {
-        let respuesta = window.confirm(`Desea borrar el siguiente kata ${kata}`)
-
+    const borrarKata = (kata: any) => {
+        let respuesta = window.confirm(`Desea borrar el siguiente kata 
+        ${kata?.name}
+        ${kata?.Description}
+        `);
         if (respuesta === true) {
             borrarKataById(loggedIn, id, idUser);
             navigate(`/katas`);
-
         }
-
     }
 
-    // Estrado para mostra solucion
+    // Estado para mostra solucion
     const [showSolution, setShowSolution] = useState(false);
     useEffect(() => {
-
         //Verificar si esta logueado
         if (!loggedIn) {
             return navigate('/login')
@@ -103,12 +102,12 @@ export const KataDetailsPage = () => {
                         <div>
                             <Button variant="contained" color="primary"
                                 onClick={() => {
-                                    borrarKata()
+                                    borrarKata(kata)
                                 }}>
                                 Borrar Kata
                             </Button>
                             <Button variant="contained" color="primary"
-                                onClick={(kata) => {
+                                onClick={() => {
                                     actualizarKata()
                                 }}>
                                 Actualizar Kata

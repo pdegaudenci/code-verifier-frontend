@@ -1,8 +1,8 @@
 export const useSessionStorage = (key: string): any | false => {
-    let storeValue = sessionStorage.getItem(key);
+    let valorAlmacenamientoCliente = sessionStorage.getItem(key);
 
-    if (!storeValue) {
+    if (!valorAlmacenamientoCliente) {
         return false;
     }
-    return storeValue;
+    return valorAlmacenamientoCliente;
 }
