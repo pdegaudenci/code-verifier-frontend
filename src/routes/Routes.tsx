@@ -9,7 +9,7 @@ import { LoginPage } from "../pages/LoginPage"
 import { RegisterPage } from "../pages/RegisterPage"
 import { CrearKata } from "../pages/CrearKata"
 import { ActualizarKata } from "../pages/ActualizarKata"
-import MisKatasPage from "../pages/MisKatasPage"
+import { MisKatasPage } from "../pages/MisKatasPage"
 
 export const AppRoutes = () => {
     return (

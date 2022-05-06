@@ -93,7 +93,7 @@ export const actualizarKata = (token: string, kata: any, editor: string) => {
      *  */
 
     // https://localhost:8000/api/katas
-   
+
 
     const response = axios({
         method: "PUT",
@@ -153,4 +153,27 @@ export const borrarKataById = (token: string, id: any, editor: string) => {
     console.table(response)
     return response
 }
+
+export const obtenerKatasDeUsuario = (token: string, id: string) => {
+    // https://localhost:8000/api/katas
+    const options =
+    {
+        headers: {
+            'xs-access-token': token
+        },
+        params: {
+            id: id,
+
+        }
+
+    }
+    // https://localhost:8000/api/katas?id=id
+    const response = axios.get('/users/katas',
+        options
+
+    )
+    console.table(response)
+    return response
+}
+
 
