@@ -45,7 +45,7 @@ export const getKataById = (token: string, id: string) => {
         options
 
     )
-    console.table(response)
+
     return response
 }
 
@@ -93,24 +93,22 @@ export const actualizarKata = (token: string, kata: any, editor: string) => {
      *  */
 
     // https://localhost:8000/api/katas
+   
+
     const response = axios({
-        method: "put",
+        method: "PUT",
         url: "/katas",
         data: {
-
-
-            name: kata.name,
-            Description: kata.Description,
-            Level: kata.Level,
+            name: kata?.name,
+            Description: kata?.Description,
+            Level: kata?.Level,
             User: kata.User,
             participants: [],
             solution: kata.solution
-
-
         },
 
         params: {
-            id: kata?._id,
+            id: kata.id,
             editor: editor
         },
         headers: {

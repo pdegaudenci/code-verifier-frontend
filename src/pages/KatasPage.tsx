@@ -7,24 +7,32 @@ import { Kata } from '../config/types/Kata.types';
 import { getAllKatas } from '../services/katasService';
 import Button from '@mui/material/Button';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+import Grid from '@mui/material/Grid';
+
+
+
 export const KatasPage = () => {
+
     // Verificar si el usuario esta logueado y exixte un JWToken en sesionStorage
     let loggedIn = useSessionStorage('JWToken')
     let navigate = useNavigate();
     // Estado con informacion de katas
     const [katas, setKatas] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(2);
+    let [currentPage, setCurrentPage] = useState(1)
     useEffect(() => {
 
         if (!loggedIn) {
             return navigate('/login')
         } else {
-            getAllKatas(loggedIn, 10, 1).then((response: AxiosResponse) => {
+            getAllKatas(loggedIn, totalPages, currentPage).then((response: AxiosResponse) => {
                 if (response.status === 200 && response.data.katas && response.data.totalPages && response.data.currentPage) {
                     // console.table(response.data);
                     // Desestructuracion de campos de response.data
                     let { katas, totalPages, currentPage } = response.data;
+                    console.log(response.data)
                     setKatas(katas);
                     setTotalPages(totalPages);
                     setCurrentPage(currentPage);
@@ -37,7 +45,7 @@ export const KatasPage = () => {
             })
         }
 
-    }, [loggedIn])
+    }, [loggedIn, currentPage])
 
     /**
      * Metodo para navegar a los detalles de un kata especifico
@@ -94,6 +102,13 @@ export const KatasPage = () => {
                 }}>
                 Crear Kata
             </Button>
+            <Grid container justifyContent="center" sx={{ marginTop: 10, marginBottom: 10 }}>
+
+                <Pagination count={totalPages} page={currentPage}
+                    color="primary" />
+
+
+            </Grid>
         </div>
     )
 }

@@ -14,6 +14,8 @@ import lowlight from 'lowlight'
 // import javascript from 'highlight.js/lib/languages/javascript'
 // lowlight.registerLanguage('javascript', javascript)
 import './styles/mainStyles.scss'
+import { ContenidoDashboard } from '../dashboard/Dashboard'
+import Grid from '@mui/material/Grid'
 
 const MenuBar = ({ editor }: any) => {
     if (!editor) {
@@ -22,12 +24,12 @@ const MenuBar = ({ editor }: any) => {
 
     return (
         <button onClick={() => editor.chain().focus().toggleCodeBlock().run()} className={editor.isActive('codeBlock') ? 'is-active' : ''}>
-            code block
+            Editor de codigo
         </button>
     )
 }
 
-export const TipTapEditor = () => {
+export const TipTapEditor = ({ solution }: any) => {
     const editor = useEditor({
         extensions: [
             Document,
@@ -41,14 +43,16 @@ export const TipTapEditor = () => {
                 })
                 .configure({ lowlight }),
         ],
-        content: `
-         // Aqui va el codigo `
+        content: solution
     })
 
     return (
         <div>
+            <ContenidoDashboard />
             <MenuBar editor={editor} />
+
             <EditorContent editor={editor} />
+
         </div>
     )
 }

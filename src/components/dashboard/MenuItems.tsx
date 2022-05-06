@@ -13,27 +13,28 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 export const MenuItems = (
     <React.Fragment>
         <ListItemButton>
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-       
-      
-        <Link to='/katas' className="menuLink"> Katas </Link>          
+
+
+
+            <Link to='/katas' className="menuLink"> Katas </Link>
+
+        </ListItemButton>
+        <ListItemButton>
+
+
+
+            <Link to='/misKatas' className="menuLink">Mis Katas </Link>
 
         </ListItemButton>
 
         <ListItemButton>
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
-            <Link to='/katas' > Usuarios </Link> 
+
+            <Link to='/katas' > Usuarios </Link>
         </ListItemButton>
 
         <ListItemButton>
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
-            <Link to='/ranking' > Ranking </Link> 
+
+            <Link to='/ranking' > Ranking </Link>
         </ListItemButton>
     </React.Fragment>
 

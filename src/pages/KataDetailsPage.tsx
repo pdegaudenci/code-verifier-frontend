@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 
 // Importaciones de react-router-dom
 import { useNavigate, useParams } from 'react-router-dom';
-import { Editor } from '../components/editor/Editor';
+
 import { useSessionStorage } from '../components/hooks/useSessionStorage';
 import { Kata } from '../config/types/Kata.types';
 import { getKataById, borrarKataById } from '../services/katasService';
 
 import Button from '@mui/material/Button';
+import { TipTapEditor } from '../components/editor/TipTapEditor';
 
 export const KataDetailsPage = () => {
 
@@ -76,7 +77,7 @@ export const KataDetailsPage = () => {
 
     return (
         <div>
-            <h1>KataDetailsPage{id}</h1>
+            <h1>KataDetailsPage</h1>
             <div>
                 {
                     kata ? (
@@ -92,11 +93,9 @@ export const KataDetailsPage = () => {
                         </div>
                     )
                 }
-                <button onClick={() => setShowSolution(!showSolution)}>
-                    {showSolution ? 'Mostrar solucion' : 'Esconder solucion'}
-                </button>
 
-                {/**showSolution ? null : <Editor solution={kata?.solution}></Editor>**/}
+
+
                 {
                     idUser === kata?.User ?
                         <div>
@@ -119,6 +118,10 @@ export const KataDetailsPage = () => {
 
                         : (null)
                 }
+                <button onClick={() => setShowSolution(!showSolution)} style={{ marginTop: 10, marginBottom: 10 }}>
+                    {showSolution ? 'Mostrar solucion' : 'Esconder solucion'}
+                </button>
+                {showSolution ? null : <TipTapEditor solution={kata?.solution}></TipTapEditor>}
             </div>
         </div>
     )

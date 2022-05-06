@@ -9,6 +9,7 @@ import { LoginPage } from "../pages/LoginPage"
 import { RegisterPage } from "../pages/RegisterPage"
 import { CrearKata } from "../pages/CrearKata"
 import { ActualizarKata } from "../pages/ActualizarKata"
+import MisKatasPage from "../pages/MisKatasPage"
 
 export const AppRoutes = () => {
     return (
@@ -22,6 +23,8 @@ export const AppRoutes = () => {
             <Route path='/katas/:id' element={<KataDetailsPage />}></Route>
             <Route path='/actualizarKata/:id' element={<ActualizarKata />}></Route>
             <Route path='/crearKata' element={<CrearKata />}></Route>
+            <Route path='/misKatas' element={<MisKatasPage />}></Route>
+
 
 
             {/**Redireccion de ruta no encontrada */}

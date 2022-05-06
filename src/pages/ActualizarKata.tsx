@@ -6,6 +6,7 @@ import { useSessionStorage } from '../components/hooks/useSessionStorage';
 import { getKataById } from '../services/katasService';
 import { AxiosResponse } from 'axios';
 
+
 // Validaciones con yup y formik
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
@@ -41,7 +42,7 @@ export const ActualizarKata = () => {
     let loggedIn = useSessionStorage('JWToken');
     //Id del usuario
     let idUser: string = useSessionStorage('id');
-    const [kata, setKata] = useState<Kata | undefined>(undefined);
+    const [kataObtenido, setKata] = useState<Kata | undefined>(undefined);
 
     useEffect(() => {
         //Verificar si esta logueado
@@ -52,7 +53,7 @@ export const ActualizarKata = () => {
             if (id) {
                 getKataById(loggedIn, id).then((response: AxiosResponse) => {
                     if (response.status === 200 && response.data) {
-                        let kataObtenido: Kata = {
+                        const kataObtenido: Kata = {
                             _id: response.data._id,
                             name: response.data.name,
                             Chances: response.data.Chances,
@@ -64,6 +65,7 @@ export const ActualizarKata = () => {
                             solution: response.data.solution
                         }
                         setKata(kataObtenido);
+                        console.log(kataObtenido?.name)
                     }
                 }).catch(error => {
                     console.log(`[ERROR kata by id]:${error}`)
@@ -72,37 +74,40 @@ export const ActualizarKata = () => {
             else {
                 return navigate('/katas')
             }
-            console.log(kata)
+
         }
 
     }, [loggedIn])
 
     let tema = createTheme()
     // Campos que se pasan a formik
-    const credencialesIniciales = {
-        name: '',
-        descripcion: '',
-        level: 'Basic',
-        solucion: '',
 
-    }
 
     // definir esquema de validacion con yup
     const kataSchema = Yup.object().shape({
-        name: Yup.string().required('El campo nombre del kata es obligatorio'),
-        descripcion: Yup.string().required('Debe proporcionar una descripcion'),
-        level: Yup.string().required('Debe proporcionar un nivel '),
-        solucion: Yup.string().required('Debe proporcionar una solucion')
+        name: Yup.string(),
+        descripcion: Yup.string(),
+        level: Yup.string(),
+        solucion: Yup.string()
 
     })
 
     const formik = useFormik({
-        initialValues: credencialesIniciales,
+        initialValues: {
+            name: kataObtenido?.name,
+            descripcion: kataObtenido?.Description,
+            level: kataObtenido?.Level,
+            solucion: kataObtenido?.solution,
+
+        },
         // Validaciones de formulario
         validationSchema: kataSchema,
+
         onSubmit: (values) => {
 
-            let kata = {
+            const kata = {
+                // eslint-disable-next-line @typescript-eslint/no-use-before-define
+                id: kataObtenido?._id,
                 name: values.name,
                 Description: values.descripcion,
                 Level: values.level,
@@ -112,7 +117,8 @@ export const ActualizarKata = () => {
             }
 
             actualizarKata(loggedIn, kata, idUser).then((res) => {
-                if (res.status === 201) {
+                console.log(res)
+                if (res.status === 200) {
                     alert('Kata actualizado correctamente');
                     navigate('/katas')
                 }
@@ -146,95 +152,104 @@ export const ActualizarKata = () => {
 
                             Actualizacion de kata
                         </Typography>
-                        <form onSubmit={formik.handleSubmit}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} >
-                                    <TextField
-                                        autoComplete="given-name"
-                                        name="name"
 
+                        {
+                            (kataObtenido && kataObtenido.name && kataObtenido.Description && kataObtenido.Level && kataObtenido.solution) ? (
+                                <form onSubmit={formik.handleSubmit} >
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} >
+                                            <TextField
+                                                autoComplete="given-name"
+                                                name="name"
+                                                defaultValue={kataObtenido?.name}
+
+                                                fullWidth
+                                                id="name"
+                                                label="Nombre del Kata"
+                                                autoFocus
+                                                value={formik.values.name}
+                                                onChange={formik.handleChange}
+                                                error={formik.touched.name && Boolean(formik.errors.name)}
+                                                helperText={formik.touched.name && formik.errors.name}
+                                            />
+                                        </Grid>
+
+
+                                        <Grid item xs={12}>
+                                            <TextField
+
+                                                fullWidth
+                                                id="descripcion"
+                                                label="Descripcion del kata"
+                                                name="descripcion"
+                                                defaultValue={kataObtenido?.Description}
+                                                value={formik.values.descripcion}
+                                                onChange={formik.handleChange}
+                                                error={formik.touched.descripcion && Boolean(formik.errors.descripcion)}
+                                                helperText={formik.touched.descripcion && formik.errors.descripcion}
+                                            />
+                                        </Grid>
+
+                                    </Grid>
+                                    <Grid item xs={12}>
+
+                                        <Select
+                                            fullWidth
+                                            id="level"
+                                            label="Nivel del kata"
+                                            name="level"
+                                            defaultValue={(kataObtenido.Level) ? kataObtenido.Level : 'Basic'}
+                                            value={formik.values.level}
+                                            onChange={formik.handleChange}
+                                            error={formik.touched.level && Boolean(formik.errors.level)}
+
+                                            style={{ marginTop: '10px', marginBottom: '10px' }}>
+
+                                            <MenuItem value="Basic">Basico
+                                            </MenuItem>
+                                            <MenuItem value="Medium">Intermedio
+                                            </MenuItem>
+                                            <MenuItem value="Hight">Alto
+                                            </MenuItem>
+
+                                        </Select>
+                                    </Grid>
+
+
+                                    <Grid item xs={12}>
+
+                                        <TextareaAutosize
+                                            maxRows={100}
+                                            aria-label="maximum height"
+
+                                            defaultValue={kataObtenido?.solution}
+                                            style={{ width: 200 }}
+                                            name="solucion"
+
+                                            value={formik.values.solucion}
+                                            onChange={formik.handleChange}
+                                        />
+                                    </Grid>
+
+
+
+
+                                    <Button
+                                        type="submit"
                                         fullWidth
-                                        id="name"
-                                        label="Nombre del Kata"
-                                        autoFocus
-                                        value={kata?.name}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.name && Boolean(formik.errors.name)}
-                                        helperText={formik.touched.name && formik.errors.name}
-                                    />
-                                </Grid>
-
-
-                                <Grid item xs={12}>
-                                    <TextField
-
-                                        fullWidth
-                                        id="descripcion"
-                                        label="Descripcion del kata"
-                                        name="descripcion"
-                                        autoComplete="example@example.com"
-                                        value={kata?.Description}
-                                        onChange={formik.handleChange}
-                                        error={formik.touched.descripcion && Boolean(formik.errors.descripcion)}
-                                        helperText={formik.touched.descripcion && formik.errors.descripcion}
-                                    />
-                                </Grid>
-
-                            </Grid>
-                            <Grid item xs={12}>
-
-                                <Select
-                                    fullWidth
-                                    id="level"
-                                    label="Nivel del kata"
-                                    name="level"
-                                    value={kata?.Level}
-                                    onChange={formik.handleChange}
-                                    error={formik.touched.level && Boolean(formik.errors.level)}
-
-                                    style={{ marginTop: '10px', marginBottom: '10px' }}>
-
-                                    <MenuItem value="Basic">Basico
-                                    </MenuItem>
-                                    <MenuItem value="Medium">Intermedio
-                                    </MenuItem>
-                                    <MenuItem value="Hight">Alto
-                                    </MenuItem>
-
-                                </Select>
-                            </Grid>
-
-
-                            <Grid item xs={12}>
-
-                                <TextareaAutosize
-                                    maxRows={100}
-                                    aria-label="maximum height"
-
-                                    defaultValue="."
-                                    style={{ width: 200 }}
-                                    name="solucion"
-
-                                    value={kata?.solution}
-                                    onChange={formik.handleChange}
-                                />
-                            </Grid>
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2 }}
+                                    >
+                                        Actualizar kata
+                                    </Button>
 
 
 
+                                </form>
+                            ) : (<p>Obteniendo datos</p>)
 
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Actualizar kata
-                            </Button>
+                        }
 
-
-
-                        </form>
 
 
 
