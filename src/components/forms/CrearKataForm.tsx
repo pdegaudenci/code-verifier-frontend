@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormik } from 'formik'
+import { FormikProvider, useFormik, Field } from 'formik'
 import { crearKata } from '../../services/katasService';
 import * as Yup from 'yup';
 import { AxiosResponse } from 'axios';
@@ -17,14 +17,19 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Kata } from '../../config/types/Kata.types';
-import { TipTapEditor } from '../editor/TipTapEditor'
+
 import { useNavigate } from 'react-router-dom';
 
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { TextareaAutosize } from '@mui/base';
+
 // Menu 
 import { ContenidoDashboard } from '../dashboard/Dashboard';
+
+// Editor de codigo
+import { TipTapEditor } from '../editor/TipTapEditor'
+
 
 export const CrearKataForm = () => {
     let navigate = useNavigate();
@@ -54,7 +59,7 @@ export const CrearKataForm = () => {
         // Validaciones de formulario
         validationSchema: kataSchema,
         onSubmit: (values) => {
-
+            console.log(values)
             let kata = {
                 name: values.name,
                 Description: values.descripcion,

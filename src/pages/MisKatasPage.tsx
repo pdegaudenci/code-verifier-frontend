@@ -46,6 +46,7 @@ export const MisKatasPage = () => {
     return (
         <div>
             <ContenidoDashboard />
+
             <h1>Mis katas</h1>
             {/**TODO:  Real kata */}
             {

@@ -32,8 +32,7 @@ import NotificationIcon from '@mui/icons-material/Notifications'
 import { MenuItems } from './MenuItems'
 import { boolean } from 'yup/lib/locale'
 import { Typography } from '@mui/material'
-import { NuevoEditor } from '../editor/NuevoEditor'
-import { TipTapEditor } from '../editor/TipTapEditor'
+
 
 // Propiedades del menu
 // Ancho del Drawer
@@ -50,7 +49,6 @@ interface AppBarProps extends MuiAppBarProps {
 const BarraNav = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => (
-    // Agrego 2 transiciones --> metodo create se le pasa dos parametros : array de propiedades a modificar y la transicion a aplicar
     {
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
@@ -67,6 +65,8 @@ const BarraNav = styled(MuiAppBar, {
         }),
     }
 ));
+
+
 
 // Menu Drawer
 
@@ -168,7 +168,7 @@ export const ContenidoDashboard = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                           Aplicacion CRUD de katas
+                            Aplicacion CRUD de katas
                         </Typography>
 
                         {/**Icono para mostrar notificaciones */}
@@ -218,7 +218,7 @@ export const ContenidoDashboard = () => {
 
                 </Menu>
                 {/**Contenido del dashboard */}
-             
+
             </Box>
 
         </ThemeProvider >

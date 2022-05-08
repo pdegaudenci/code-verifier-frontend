@@ -55,13 +55,11 @@ export const KatasPage = () => {
         navigate(`/katas/${id}`)
     }
 
-    const crearKata = () => {
-        navigate('/crearKata');
-    }
 
     return (
         <div>
             <ContenidoDashboard />
+
             <h1>Katas Page</h1>
             {/**TODO:  Real kata */}
             {
@@ -91,17 +89,12 @@ export const KatasPage = () => {
                 ) :
                     (
                         <div>
-                            <h5>No hay kaats disponibles</h5>
+                            <h5>No hay katas disponibles</h5>
                         </div>
                     )
             }
 
-            <Button variant="contained" color="primary"
-                onClick={() => {
-                    crearKata()
-                }}>
-                Crear Kata
-            </Button>
+
             <Grid container justifyContent="center" sx={{ marginTop: 10, marginBottom: 10 }}>
 
                 <Pagination count={totalPages} page={currentPage}

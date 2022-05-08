@@ -43,7 +43,7 @@ export const TipTapEditor = ({ solution }: any) => {
                 })
                 .configure({ lowlight }),
         ],
-        content: solution
+        content: solution || ''
     })
 
     return (
